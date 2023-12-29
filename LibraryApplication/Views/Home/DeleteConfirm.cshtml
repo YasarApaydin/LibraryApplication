@@ -1,0 +1,15 @@
+﻿@model Book
+
+
+
+<div>
+    <p>
+        Do You Want To Delete The Book Named @Model.Name ?
+        <form action="" method="post">
+            <input type="hidden" asp-for="@Model.BookId" />
+            <button type="submit" class="btn btn-danger" >Yes</button>
+            <a href="/" class="btn btn-primary" >No</a>
+        </form>
+    </p>
+
+</div>

@@ -1,0 +1,76 @@
+﻿@model BookViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<div class="card my-3 card-body col-auto">
+    <form asp-action="Index" method="get">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-11">
+                    <select name="category"
+                        class="form-select"
+                            asp-items="ViewBag.Categories">
+                        <option value="0">Hepsi</option>
+                    </select>
+                </div>
+                <div class="col-1">
+                    <button type="submit" class="btn btn-primary">Filtreleme</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<form asp-action="EditBooks" method="post">
+
+    
+        <div class="row m-0 pb-5 ">
+            @for (var i = 0; i < Model.Books.Count; i++)
+
+            {
+            <div class="col-3 pt-5 ">
+                    <div class="card text-center " style="width: 18rem;  border: 2px solid #ffa500; padding:5px;">
+                        <img src="~/img/@Model.Books[i].Image" class="img-fluid" style="height:300px; width:18rem;" alt="...">
+                        <div class="card-body">
+                            <div class="accordion_@Model.Books[i].BookId " style="height:190px;">
+                                <input type="hidden" asp-for="@Model.Books[i].BookId" />
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button  text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_@Model.Books[i].BookId" aria-expanded="true" aria-controls="accordion_@Model.Books[i].BookId">
+                                            <h3>Information</h3>
+
+                                        </button>
+                                    </h2>
+                                    <div id="accordion_@Model.Books[i].BookId" class="accordion-collapse collapse " style="height:110px; " data-bs-parent="#accordion_@Model.Books[i].BookId">
+                                        <div class="accordion-body scrollable-div" style="height:110px; overflow-y: scroll;">
+                                            <strong>@Html.DisplayNameFor(m => m.Books[0].Name):</strong> <i>@Model.Books[i].Name</i><br />
+                                            <strong>@Html.DisplayNameFor(m => m.Books[0].Author):</strong> <i>@Model.Books[i].Author</i><br />
+                                            <strong>@Html.DisplayNameFor(m => m.Books[0].Price):</strong> <i>@Model.Books[i].Price TL</i><br />
+                                            <strong>@Html.DisplayNameFor(m => m.Books[0].Shelf):</strong><input type="checkbox" class="bg-primary" asp-for="@Model.Books[i].Shelf" style="width:70px;" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a href="/Home/Edit/@Model.Books[i].BookId" class="btn btn-primary mt-3 align-center">Edit</a>
+                            <a href="/Home/Delete/@Model.Books[i].BookId " class="btn btn-danger mt-3 align-center">Delete</a>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            }
+
+        </div>
+    
+    <button type="submit" class="btn btn-primary ">Kaydet</button>
+</form>
+
+
